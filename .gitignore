@@ -1,0 +1,7 @@
+# Ignore PDF binary files
+*.pdf
+
+# Optional: Ignore temporary or scratch files
+*.log
+.DS_Store
+Thumbs.db

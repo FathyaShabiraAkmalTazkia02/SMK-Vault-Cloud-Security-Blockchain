@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMK Vault - Cloud Security Architecture & Immutable Ledger</title>
+
+  <!-- Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- CryptoJS for SHA-256 Hashing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <!-- jsPDF for PDF Diploma Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Top Cyber Command Shell -->
+  <div class="cyber-shell">
+
+    <!-- Top Header Bar -->
+    <header class="cyber-header">
+      <div class="header-brand">
+        <div class="brand-emblem">
+          <i class="fa-solid fa-vault"></i>
+        </div>
+        <div class="brand-titles">
+          <h1>SMK CLOUD SECURITY & BLOCKCHAIN VAULT</h1>
+          <p>Zero-Trust Architecture • Multi-Cloud VPC • Immutable Academic Ledger</p>
+        </div>
+      </div>
+
+      <!-- Header IAM & Clearance Control -->
+      <div class="clearance-dock">
+        <div class="clearance-badge" id="mfa-clearance-status">
+          <span class="pulse-beacon"></span>
+          <span id="clearance-text">IAM Clearance: Public Access</span>
+        </div>
+
+        <div class="role-selector-pill">
+          <i class="fa-solid fa-user-shield text-cyan"></i>
+          <select id="roleSelect" class="cyber-select" onchange="changeActiveRole(this.value)">
+            <option value="tu">Role: Staf TU (Administrasi)</option>
+            <option value="kepsek">Role: Kepala Sekolah (Validator KMS)</option>
+            <option value="dudi">Role: Mitra DUDI (Industri PKL)</option>
+            <option value="guru">Role: Guru (Akademik & Nilai)</option>
+            <option value="siswa">Role: Siswa (Read-Only)</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Command Ribbon -->
+    <nav class="command-ribbon">
+      <button class="ribbon-btn active" id="nav-dashboard" onclick="switchView('dashboard')">
+        <i class="fa-solid fa-chart-pie"></i> <span>Overview & Cloud Ops</span>
+      </button>
+      <button class="ribbon-btn" id="nav-portals" onclick="switchView('portals')">
+        <i class="fa-solid fa-user-lock"></i> <span>Zero-Trust RBAC Workspaces</span>
+      </button>
+      <button class="ribbon-btn" id="nav-verifier" onclick="switchView('verifier')">
+        <i class="fa-solid fa-shield-check"></i> <span>Public Verifier Portal</span>
+      </button>
+      <button class="ribbon-btn" id="nav-network" onclick="switchView('network')">
+        <i class="fa-solid fa-diagram-project"></i> <span>VPC & Topology Inspector</span>
+      </button>
+      <button class="ribbon-btn" id="nav-sandbox" onclick="switchView('sandbox')">
+        <i class="fa-solid fa-bug"></i> <span>Cyber Pentest & Audit Lab</span>
+      </button>
+    </nav>
+
+    <!-- Main Workspace Container -->
+    <main class="workspace-body">
+
+      <!-- VIEW 1: OVERVIEW & CLOUD METRICS -->
+      <section id="view-dashboard" class="view-panel active">
+
+        <!-- Stat Cards Grid -->
+        <div class="metrics-row">
+          <div class="metric-box cyan-glow" onclick="switchView('network')" style="cursor: pointer;">
+            <div class="box-head">
+              <span>WAF & EDGE DEFENSE</span>
+              <i class="fa-solid fa-shield-halved text-cyan"></i>
+            </div>
+            <div class="box-body">
+              <div class="stat-number" id="waf-block-count">24</div>
+              <div class="stat-desc">Cloud Armor Payload Neutralized</div>
+            </div>
+            <div class="box-foot">
+              <span class="status-dot green"></span> Rate Limit: 100 req/min
+            </div>
+          </div>
+
+          <div class="metric-box blue-glow" onclick="switchView('network')" style="cursor: pointer;">
+            <div class="box-head">
+              <span>KMS ENCRYPTION VAULT</span>
+              <i class="fa-solid fa-key text-blue"></i>
+            </div>
+            <div class="box-body">
+              <div class="stat-number">AES-256</div>
+              <div class="stat-desc">FIPS 140-2 Level 3 HSM</div>
+            </div>
+            <div class="box-foot">
+              <span class="status-dot green"></span> TLS 1.3 Strict Transit
+            </div>
+          </div>
+
+          <div class="metric-box emerald-glow" onclick="scrollToExplorer()" style="cursor: pointer;">
+            <div class="box-head">
+              <span>BLOCKCHAIN LEDGER</span>
+              <i class="fa-solid fa-cubes text-emerald"></i>
+            </div>
+            <div class="box-body">
+              <div class="stat-number" id="ledger-total-blocks">2</div>
+              <div class="stat-desc">Immutable Blocks Minted</div>
+            </div>
+            <div class="box-foot">
+              <span class="status-dot green"></span> Consensus: PoA Network
+            </div>
+          </div>
+
+          <div class="metric-box amber-glow" onclick="switchView('portals')" style="cursor: pointer;">
+            <div class="box-head">
+              <span>ZERO-TRUST STATUS</span>
+              <i class="fa-solid fa-network-wired text-amber"></i>
+            </div>
+            <div class="box-body">
+              <div class="stat-number">100%</div>
+              <div class="stat-desc">VPC Subnet Isolation</div>
+            </div>
+            <div class="box-foot">
+              <span class="status-dot amber"></span> MFA Hardware Enforced
+            </div>
+          </div>
+        </div>
+
+        <!-- Infrastructure AWS vs GCP Matrix -->
+        <div class="panel-card" style="margin-top: 1.5rem;">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-server text-cyan"></i> Matriks Multi-Cloud Architecture (AWS vs GCP)</h3>
+            <span class="panel-badge"><i class="fa-solid fa-info-circle"></i> Klik baris untuk detail teknis
+              deployment</span>
+          </div>
+
+          <div class="table-container">
+            <table class="cyber-table">
+              <thead>
+                <tr>
+                  <th>Komponen Arsitektur</th>
+                  <th>Layanan AWS</th>
+                  <th>Layanan GCP</th>
+                  <th>Standar Proteksi Keamanan</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr onclick="showInfraDetails('waf')" style="cursor: pointer;">
+                  <td><strong>Perimeter & WAF Defense</strong></td>
+                  <td><span class="badge-pill aws"><i class="fa-brands fa-aws"></i> AWS WAF + Shield</span></td>
+                  <td><span class="badge-pill gcp"><i class="fa-brands fa-google"></i> Google Cloud Armor</span></td>
+                  <td><span class="text-emerald">Active Anti-DDoS & SQLi Filter</span></td>
+                </tr>
+                <tr onclick="showInfraDetails('iam')" style="cursor: pointer;">
+                  <td><strong>Identity & Otorisasi IAM</strong></td>
+                  <td><span class="badge-pill aws"><i class="fa-brands fa-aws"></i> AWS IAM Center</span></td>
+                  <td><span class="badge-pill gcp"><i class="fa-brands fa-google"></i> Google Cloud IAM</span></td>
+                  <td><span class="text-emerald">RBAC + TOTP Multi-Factor Auth</span></td>
+                </tr>
+                <tr onclick="showInfraDetails('compute')" style="cursor: pointer;">
+                  <td><strong>Backend Compute Subnet</strong></td>
+                  <td><span class="badge-pill aws"><i class="fa-brands fa-aws"></i> Amazon EKS Fargate</span></td>
+                  <td><span class="badge-pill gcp"><i class="fa-brands fa-google"></i> GKE / Cloud Run</span></td>
+                  <td><span class="text-emerald">Isolated Private Subnet Only</span></td>
+                </tr>
+                <tr onclick="showInfraDetails('db')" style="cursor: pointer;">
+                  <td><strong>Database Operasional</strong></td>
+                  <td><span class="badge-pill aws"><i class="fa-brands fa-aws"></i> Aurora PostgreSQL</span></td>
+                  <td><span class="badge-pill gcp"><i class="fa-brands fa-google"></i> Cloud SQL PostgreSQL</span></td>
+                  <td><span class="text-emerald">Enkripsi Rest (CMEK AES-256)</span></td>
+                </tr>
+                <tr onclick="showInfraDetails('s3')" style="cursor: pointer;">
+                  <td><strong>Immutable Storage</strong></td>
+                  <td><span class="badge-pill aws"><i class="fa-brands fa-aws"></i> S3 Object Lock</span></td>
+                  <td><span class="badge-pill gcp"><i class="fa-brands fa-google"></i> Cloud Storage Lock</span></td>
+                  <td><span class="text-emerald">WORM Policy (No Alteration)</span></td>
+                </tr>
+                <tr onclick="showInfraDetails('kms')" style="cursor: pointer;">
+                  <td><strong>Hardware Security (KMS)</strong></td>
+                  <td><span class="badge-pill aws"><i class="fa-brands fa-aws"></i> AWS CloudHSM</span></td>
+                  <td><span class="badge-pill gcp"><i class="fa-brands fa-google"></i> Cloud KMS HSM</span></td>
+                  <td><span class="text-emerald">Hardware FIPS 140-2 Level 3</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Blockchain Block Explorer Visualizer -->
+        <div class="panel-card" style="margin-top: 1.5rem;">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-link text-emerald"></i> Visualisasi Blockchain Ledger Chain (Immutability Proof)
+            </h3>
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <button class="cyber-btn primary" onclick="showSmartContractCodeModal()"
+                style="padding: 0.35rem 0.8rem; font-size: 0.78rem;">
+                <i class="fa-solid fa-code"></i> Code Smart Contract (.sol)
+              </button>
+              <span class="panel-badge">Rantai Block Terenkripsi SHA-256</span>
+            </div>
+          </div>
+
+          <div class="blockchain-ribbon" id="blockExplorer">
+            <!-- Dynamically Rendered by app.js -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- VIEW 2: ZERO-TRUST RBAC WORKSPACES -->
+      <section id="view-portals" class="view-panel">
+
+        <!-- Staf TU Portal -->
+        <div id="portal-tu" class="portal-interface active">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-file-signature text-cyan"></i> Lembar Kerja Staf TU (Input Data Kelulusan)</h3>
+              <span class="panel-badge">Hak Akses: Admin Operator</span>
+            </div>
+            <p class="panel-desc">Registrasi data siswa lulusan untuk diajukan ke antrian otorisasi penandatanganan
+              Kepala Sekolah.</p>
+
+            <form id="tuForm" onsubmit="submitGraduationData(event)" class="cyber-form">
+              <div class="form-grid-2">
+                <div class="field-box">
+                  <label>Nama Lengkap Siswa</label>
+                  <input type="text" id="studentName" class="cyber-input" placeholder="Contoh: Ahmad Rizky Pratama"
+                    required>
+                </div>
+                <div class="field-box">
+                  <label>NISN (Nomor Induk Siswa Nasional)</label>
+                  <input type="text" id="studentNisn" class="cyber-input" placeholder="Contoh: 0048127394" required>
+                </div>
+              </div>
+              <div class="form-grid-2">
+                <div class="field-box">
+                  <label>Kompetensi Keahlian (Jurusan)</label>
+                  <select id="studentJurusan" class="cyber-input" required>
+                    <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak (RPL)</option>
+                    <option value="Teknik Komputer & Jaringan">Teknik Komputer & Jaringan (TKJ)</option>
+                    <option value="Multimedia">Multimedia (MM)</option>
+                  </select>
+                </div>
+                <div class="field-box">
+                  <label>Rata-rata Transkrip Nilai</label>
+                  <input type="number" id="studentGpa" class="cyber-input" step="0.01" min="0" max="100"
+                    placeholder="Contoh: 88.50" required>
+                </div>
+              </div>
+              <button type="submit" class="cyber-btn primary">
+                <i class="fa-solid fa-paper-plane"></i> Ajukan Draf Kelulusan Ke Kepala Sekolah
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Kepala Sekolah Portal -->
+        <div id="portal-kepsek" class="portal-interface">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-stamp text-emerald"></i> Lembar Kerja Kepala Sekolah (Executive KMS Signer)</h3>
+              <span class="panel-badge">Hak Akses: HSM Private Key Signer</span>
+            </div>
+            <p class="panel-desc">Otorisasi draf ijazah menggunakan Cloud KMS Hardware Security Key untuk minting ke
+              Blockchain Ledger.</p>
+
+            <div id="pendingGraduationsList">
+              <!-- Dynamically Populated in app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Mitra DUDI Portal -->
+        <div id="portal-dudi" class="portal-interface">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-building-circle-check text-violet"></i> Lembar Kerja Mitra DUDI (Industri PKL
+                Signer)</h3>
+              <span class="panel-badge">Hak Akses: Industrial Verifier</span>
+            </div>
+            <p class="panel-desc">Penerbitan & penandatanganan digital sertifikat magang industri menggunakan Wallet ID
+              Resmi DUDI.</p>
+
+            <form id="dudiForm" onsubmit="submitDudiCertificate(event)" class="cyber-form">
+              <div class="form-grid-2">
+                <div class="field-box">
+                  <label>Nama Siswa Magang</label>
+                  <input type="text" id="dudiStudentName" class="cyber-input" placeholder="Nama Lengkap Siswa" required>
+                </div>
+                <div class="field-box">
+                  <label>Nama Perusahaan / Industri</label>
+                  <input type="text" id="dudiCompanyName" class="cyber-input" placeholder="Contoh: PT. Telkom Indonesia"
+                    required>
+                </div>
+              </div>
+              <div class="form-grid-2">
+                <div class="field-box">
+                  <label>Predikat Kelulusan Magang</label>
+                  <select id="dudiScore" class="cyber-input" required>
+                    <option value="Sangat Baik">Sangat Baik (A)</option>
+                    <option value="Baik">Baik (B)</option>
+                    <option value="Cukup">Cukup (C)</option>
+                  </select>
+                </div>
+                <div class="field-box">
+                  <label>DUDI Signature Wallet ID</label>
+                  <input type="text" id="dudiWallet" class="cyber-input code-font"
+                    value="0x8922a7686523d4e8c56fa98c253b3f2711ab44ef" readonly>
+                </div>
+              </div>
+              <button type="submit" class="cyber-btn violet">
+                <i class="fa-solid fa-file-signature"></i> Sign & Terbitkan Sertifikat Ke Ledger
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Guru Portal -->
+        <div id="portal-guru" class="portal-interface">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-graduation-cap text-amber"></i> Lembar Kerja Guru (Input Nilai & Audit Hash Log)
+              </h3>
+              <span class="panel-badge">Hak Akses: Academic Entry</span>
+            </div>
+            <p class="panel-desc">Pencatatan & pemutakhiran nilai siswa yang secara otomatis di-hash dan disimpan ke
+              Audit Log Blockchain.</p>
+
+            <form id="guruForm" onsubmit="submitGradeUpdate(event)" class="cyber-form">
+              <div class="form-grid-2">
+                <div class="field-box">
+                  <label>Nama Siswa</label>
+                  <input type="text" id="gradeStudentName" class="cyber-input" placeholder="Nama Lengkap Siswa"
+                    required>
+                </div>
+                <div class="field-box">
+                  <label>NISN / ID Siswa</label>
+                  <input type="text" id="gradeStudentId" class="cyber-input" placeholder="Contoh: 0048127394" required>
+                </div>
+              </div>
+              <div class="form-grid-2">
+                <div class="field-box">
+                  <label>Mata Pelajaran</label>
+                  <select id="gradeSubject" class="cyber-input" required>
+                    <option value="Pemrograman Berorientasi Objek">Pemrograman Berorientasi Objek (PBO)</option>
+                    <option value="Basis Data">Basis Data</option>
+                    <option value="Kriptografi Dasar">Kriptografi Dasar</option>
+                  </select>
+                </div>
+                <div class="field-box">
+                  <label>Nilai Lama</label>
+                  <input type="number" id="gradeOld" class="cyber-input" min="0" max="100" placeholder="Contoh: 75"
+                    required>
+                </div>
+              </div>
+              <div class="form-grid-2">
+                <div class="field-box">
+                  <label>Nilai Baru</label>
+                  <input type="number" id="gradeNew" class="cyber-input" min="0" max="100" placeholder="Contoh: 90"
+                    required>
+                </div>
+                <div class="field-box" style="display: flex; align-items: flex-end;">
+                  <button type="submit" class="cyber-btn amber" style="width: 100%;">
+                    <i class="fa-solid fa-rotate"></i> Update Nilai & Tulis Audit Log Hash
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Siswa Portal -->
+        <div id="portal-siswa" class="portal-interface">
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-user-graduate text-cyan"></i> Lembar Kerja Siswa (Student Self-Service)</h3>
+              <span class="panel-badge">Hak Akses: Read-Only Mandiri</span>
+            </div>
+            <p class="panel-desc">Dokumen ijazah digital dan sertifikat resmi milik Anda yang terdaftar pada Ledger
+              Blockchain SMK.</p>
+
+            <div id="siswaDocumentsList">
+              <!-- Dynamically Populated in app.js -->
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- VIEW 3: PUBLIC VERIFIER PORTAL -->
+      <section id="view-verifier" class="view-panel">
+        <div class="verifier-frame">
+
+          <!-- Dropzone Container -->
+          <div class="cyber-dropzone" id="dropZone" ondragover="event.preventDefault(); this.classList.add('dragover');"
+            ondragleave="this.classList.remove('dragover');" ondrop="handlePdfDrop(event)">
+            <div class="dz-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+            <h4>Seret & Drop File PDF Ijazah Di Sini</h4>
+            <p>atau klik area ini untuk mengunggah berkas dari perangkat Anda</p>
+            <input type="file" id="pdfFileInput" style="display: none;" accept="application/pdf"
+              onchange="handlePdfSelect(event)">
+          </div>
+
+          <!-- Instant Sandbox Demo Helpers (Hidden before PDF upload) -->
+          <div class="panel-card" id="quickTestCard" style="margin-bottom: 1.5rem; display: none;">
+            <div class="panel-header">
+              <h3><i class="fa-solid fa-vial"></i> Quick Test Files (Sandbox Demo PDF Generator)</h3>
+            </div>
+            <p class="panel-desc">Gunakan tombol di bawah ini untuk mengunduh contoh berkas PDF Valid atau Terpalsukan
+              untuk diuji pada portal verifikasi.</p>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;" id="quickTestButtons">
+              <button class="cyber-btn success" onclick="downloadDemoPdf(false)">
+                <i class="fa-solid fa-file-circle-check"></i> Unduh Ijazah Valid (Asli)
+              </button>
+              <button class="cyber-btn danger" onclick="downloadDemoPdf(true)">
+                <i class="fa-solid fa-file-circle-xmark"></i> Unduh Ijazah Palsu (Modifikasi 1 Karakter)
+              </button>
+            </div>
+          </div>
+
+          <!-- Result Display Card -->
+          <div class="verification-card" id="verificationResult" style="display: none;">
+            <div class="v-head">
+              <div id="resultStatusBadge" class="v-badge verified">
+                <i class="fa-solid fa-circle-check"></i> VERIFIED
+              </div>
+              <h4 id="resultStatusTitle">Dokumen Sah & Terdaftar Pada Ledger</h4>
+            </div>
+
+            <div class="v-grid">
+              <div class="v-item">
+                <span class="v-label">Nama Pemilik</span>
+                <span class="v-val" id="resStudentName">-</span>
+              </div>
+              <div class="v-item">
+                <span class="v-label">Jenis Dokumen</span>
+                <span class="v-val" id="resDocType">-</span>
+              </div>
+              <div class="v-item full-span">
+                <span class="v-label">SHA-256 Document Hash</span>
+                <span class="v-val code-font text-cyan" id="resDocHash">-</span>
+              </div>
+              <div class="v-item">
+                <span class="v-label">Signer / Otoritas</span>
+                <span class="v-val" id="resSigner">-</span>
+              </div>
+              <div class="v-item">
+                <span class="v-label">Ledger Timestamp</span>
+                <span class="v-val" id="resTimestamp">-</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- VIEW 4: VPC TOPOLOGY & NETWORK INSPECTOR -->
+      <section id="view-network" class="view-panel">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-diagram-project text-cyan"></i> Visualisasi Topology Segmentasi VPC (Zero-Trust
+              Subnets)</h3>
+            <span class="panel-badge">Isolated Subnet Architecture</span>
+          </div>
+          <p class="panel-desc">Setiap subnet memiliki aturan ingress/egress dan WAF terisolasi. Klik area subnet pada
+            diagram SVG untuk inspeksi aturan firewall.</p>
+
+          <div class="svg-stage">
+            <svg width="100%" height="420" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+              <rect x="15" y="15" width="770" height="390" rx="15" fill="none" stroke="#2979ff" stroke-width="2"
+                stroke-dasharray="8 4" opacity="0.6" />
+              <text x="30" y="40" fill="#2979ff" font-family="'JetBrains Mono', monospace" font-size="12"
+                font-weight="700">VPC (Virtual Private Cloud Enclave) - 10.0.0.0/16</text>
+
+              <!-- Public Subnet -->
+              <g class="interactive-subnet" onclick="showSubnetInfo('internet')">
+                <rect x="40" y="80" width="180" height="290" rx="10" fill="rgba(0, 229, 255, 0.05)" stroke="#00e5ff"
+                  stroke-width="2" />
+                <text x="55" y="110" fill="#00e5ff" font-family="'Outfit', sans-serif" font-weight="700"
+                  font-size="14">Public Subnet</text>
+                <text x="55" y="130" fill="#94a3b8" font-family="'JetBrains Mono', monospace"
+                  font-size="11">10.0.1.0/24</text>
+
+                <rect x="60" y="160" width="140" height="60" rx="8" fill="#111827" stroke="rgba(255,255,255,0.1)" />
+                <text x="75" y="195" fill="#fff" font-family="sans-serif" font-weight="600" font-size="12">Cloud Armor
+                  WAF</text>
+
+                <rect x="60" y="240" width="140" height="60" rx="8" fill="#111827" stroke="rgba(255,255,255,0.1)" />
+                <text x="75" y="275" fill="#fff" font-family="sans-serif" font-weight="600" font-size="12">Load
+                  Balancer</text>
+              </g>
+
+              <!-- Private Subnet -->
+              <g class="interactive-subnet" onclick="showSubnetInfo('private')">
+                <rect x="290" y="80" width="220" height="290" rx="10" fill="rgba(41, 121, 255, 0.05)" stroke="#2979ff"
+                  stroke-width="2" />
+                <text x="305" y="110" fill="#2979ff" font-family="'Outfit', sans-serif" font-weight="700"
+                  font-size="14">Private Subnet</text>
+                <text x="305" y="130" fill="#94a3b8" font-family="'JetBrains Mono', monospace"
+                  font-size="11">10.0.2.0/24</text>
+
+                <rect x="310" y="160" width="180" height="80" rx="8" fill="#111827" stroke="rgba(255,255,255,0.1)" />
+                <text x="325" y="195" fill="#fff" font-family="sans-serif" font-weight="600" font-size="12">GKE / Cloud
+                  Run</text>
+                <text x="325" y="215" fill="#2979ff" font-family="monospace" font-size="10">App Containers</text>
+
+                <rect x="310" y="260" width="180" height="80" rx="8" fill="#111827" stroke="rgba(255,255,255,0.1)" />
+                <text x="325" y="295" fill="#fff" font-family="sans-serif" font-weight="600" font-size="12">IAM Role
+                  Filter</text>
+                <text x="325" y="315" fill="#00e676" font-family="monospace" font-size="10">Token Gatekeeper</text>
+              </g>
+
+              <!-- Isolated Subnet -->
+              <g class="interactive-subnet" onclick="showSubnetInfo('isolated')">
+                <rect x="580" y="80" width="180" height="290" rx="10" fill="rgba(0, 230, 118, 0.05)" stroke="#00e676"
+                  stroke-width="2" />
+                <text x="595" y="110" fill="#00e676" font-family="'Outfit', sans-serif" font-weight="700"
+                  font-size="14">Isolated Subnet</text>
+                <text x="595" y="130" fill="#94a3b8" font-family="'JetBrains Mono', monospace"
+                  font-size="11">10.0.3.0/24</text>
+
+                <rect x="600" y="160" width="140" height="60" rx="8" fill="#111827" stroke="rgba(255,255,255,0.1)" />
+                <text x="615" y="195" fill="#fff" font-family="sans-serif" font-weight="600" font-size="12">Cloud SQL
+                  (DB)</text>
+
+                <rect x="600" y="240" width="140" height="60" rx="8" fill="#111827" stroke="rgba(255,255,255,0.1)" />
+                <text x="615" y="275" fill="#fff" font-family="sans-serif" font-weight="600" font-size="12">Cloud KMS /
+                  HSM</text>
+              </g>
+
+              <path d="M 220 225 L 290 225" stroke="#00e5ff" stroke-width="3" fill="none" />
+              <path d="M 510 225 L 580 225" stroke="#2979ff" stroke-width="3" fill="none" />
+            </svg>
+            <div class="subnet-banner-info" id="subnetInfoOverlay" style="display: none;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 5: CYBER PENTEST & AUDIT LAB -->
+      <section id="view-sandbox" class="view-panel">
+        <div class="pentest-grid">
+
+          <div class="test-menu">
+            <div class="panel-header" style="margin-bottom: 1rem;">
+              <h3><i class="fa-solid fa-terminal text-cyan"></i> Security Test Cases (OWASP & SCSVS)</h3>
+            </div>
+
+            <div class="tc-card active" id="tc-idor" onclick="selectTestCase('idor')">
+              <div class="tc-head">
+                <span class="tc-name">1. Broken Access Control (RBAC Bypass)</span>
+                <span class="tc-tag web">Web & API</span>
+              </div>
+              <p class="tc-text">Simulasi siswa menembus otorisasi IDOR di <code>POST /api/v1/grades/update</code>.</p>
+              <button class="cyber-btn text-only" onclick="runPentestScenario('idor')"><i class="fa-solid fa-play"></i>
+                Eksekusi Test</button>
+            </div>
+
+            <div class="tc-card" id="tc-sqli" onclick="selectTestCase('sqli')">
+              <div class="tc-head">
+                <span class="tc-name">2. Parameter Manipulation (SQLi / XSS)</span>
+                <span class="tc-tag web">Web & API</span>
+              </div>
+              <p class="tc-text">Uji payload SQLi dan Stored XSS pada input publik untuk menguji WAF.</p>
+              <button class="cyber-btn text-only" onclick="runPentestScenario('sqli')"><i class="fa-solid fa-play"></i>
+                Eksekusi Test</button>
+            </div>
+
+            <div class="tc-card" id="tc-prowler" onclick="selectTestCase('prowler')">
+              <div class="tc-head">
+                <span class="tc-name">3. Cloud Infra Audit (Prowler)</span>
+                <span class="tc-tag cloud">Cloud Infra</span>
+              </div>
+              <p class="tc-text">Audit kepatuhan konfigurasi AWS/GCP VPC & IAM menggunakan Prowler.</p>
+              <button class="cyber-btn text-only" onclick="runPentestScenario('prowler')"><i
+                  class="fa-solid fa-play"></i> Eksekusi Test</button>
+            </div>
+
+            <div class="tc-card" id="tc-k6" onclick="selectTestCase('k6')">
+              <div class="tc-head">
+                <span class="tc-name">4. API Rate Limit & Load Audit (K6)</span>
+                <span class="tc-tag api">API Auth</span>
+              </div>
+              <p class="tc-text">Simulasi 200 Virtual Users untuk menguji batas rate limiting WAF.</p>
+              <button class="cyber-btn text-only" onclick="runPentestScenario('k6')"><i class="fa-solid fa-play"></i>
+                Eksekusi Test</button>
+            </div>
+
+            <div class="tc-card" id="tc-mint" onclick="selectTestCase('mint')">
+              <div class="tc-head">
+                <span class="tc-name">5. Unauthorized Minting (Hardhat)</span>
+                <span class="tc-tag chain">Smart Contract</span>
+              </div>
+              <p class="tc-text">Memanggil `issueCertificate()` smart contract menggunakan wallet publik biasa.</p>
+              <button class="cyber-btn text-only" onclick="runPentestScenario('mint')"><i class="fa-solid fa-play"></i>
+                Eksekusi Test</button>
+            </div>
+
+            <div class="tc-card" id="tc-tamper" onclick="selectTestCase('tamper')">
+              <div class="tc-head">
+                <span class="tc-name">6. Document Hash Tampering (Slither)</span>
+                <span class="tc-tag integrity">Integrity</span>
+              </div>
+              <p class="tc-text">Uji deteksi pemalsuan berkas PDF 1 karakter dengan SHA-256 hash match.</p>
+              <button class="cyber-btn text-only" onclick="runPentestScenario('tamper')"><i
+                  class="fa-solid fa-play"></i> Eksekusi Test</button>
+            </div>
+          </div>
+
+          <!-- Terminal Output Screen -->
+          <div class="terminal-container">
+            <div class="terminal-top">
+              <div class="t-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <div class="t-title">security_terminal_v2.sh</div>
+            </div>
+            <div class="terminal-screen" id="terminalBody">
+              <div class="t-line info">=== CYBER SECURITY LAB CONSOLE READY ===</div>
+              <div class="t-line info">Standard: OWASP Web Security Testing Guide & Smart Contract SCSVS</div>
+              <div class="t-line info">Klik salah satu skenario pengujian di sisi kiri untuk memulai simulasi.</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- MFA TOTP Verification Modal -->
+  <div id="mfaModal" class="cyber-modal" style="display: none;">
+    <div class="modal-box">
+      <h3 class="text-cyan"><i class="fa-solid fa-shield-halved"></i> Verifikasi Otentikasi MFA Diwajibkan</h3>
+      <p style="color: var(--text-secondary); font-size: 0.88rem; margin: 0.8rem 0 1.2rem 0;">
+        Anda mencoba mengakses peran administratif. Masukkan 6-digit kode OTP dari aplikasi <strong>Google
+          Authenticator</strong> Anda.
+      </p>
+      <div class="field-box">
+        <input type="text" id="mfaOtpInput" class="cyber-input code-font" placeholder="------" maxlength="6"
+          style="text-align: center; font-size: 1.6rem; letter-spacing: 8px; color: var(--accent-cyan);">
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem;">
+        <button class="cyber-btn text-only" onclick="cancelMfaSwitch()">Batal</button>
+        <button class="cyber-btn primary" onclick="verifyMfaSwitch()"><i class="fa-solid fa-circle-check"></i>
+          Otentikasi OTP</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Block Payload Modal -->
+  <div id="blockModal" class="cyber-modal" style="display: none;">
+    <div class="modal-box wide">
+      <h3 class="text-emerald"><i class="fa-solid fa-cube"></i> Rincian Block Payload & Immutability Chain</h3>
+      <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0.5rem 0 1rem 0;">Payload biner dan
+        cryptographic signature yang tercatat pada block ledger.</p>
+      <div id="blockModalContent" class="code-terminal"></div>
+      <div style="display: flex; justify-content: flex-end; margin-top: 1.2rem;">
+        <button class="cyber-btn primary" onclick="closeBlockModal()">Tutup Detail</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cloud Infra Modal -->
+  <div id="infraModal" class="cyber-modal" style="display: none;">
+    <div class="modal-box wide">
+      <h3 class="text-cyan"><i class="fa-solid fa-server"></i> Spesifikasi Detail Deployment Cloud Infra</h3>
+      <p id="infraModalDesc" style="color: var(--text-secondary); font-size: 0.85rem; margin: 0.5rem 0 1rem 0;"></p>
+      <div id="infraModalContent" class="code-terminal blue"></div>
+      <div style="display: flex; justify-content: flex-end; margin-top: 1.2rem;">
+        <button class="cyber-btn primary" onclick="closeInfraModal()">Tutup Spesifikasi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Smart Contract Code Modal -->
+  <div id="smartContractModal" class="cyber-modal" style="display: none;">
+    <div class="modal-box wide">
+      <h3 class="text-emerald"><i class="fa-solid fa-file-code"></i> Smart Contract Source Code (Solidity v0.8.20)</h3>
+      <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0.5rem 0 1rem 0;">Smart Contract
+        IjazahBlockchain.sol siap di-deploy & diuji pada Remix IDE & Ganache.</p>
+      <pre id="smartContractModalContent" class="code-terminal"
+        style="max-height: 400px; overflow-y: auto; text-align: left; white-space: pre-wrap; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;"></pre>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem;">
+        <button class="cyber-btn success" onclick="copySmartContractCode()"><i class="fa-solid fa-copy"></i> Salin Kode
+          Solidity</button>
+        <button class="cyber-btn primary" onclick="closeSmartContractModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="smart_contracts.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
