@@ -47,17 +47,13 @@ Simulasi pengujian keamanan interaktif untuk OWASP & Smart Contract SCSVS:
 
 ```text
 FINAL CSA/
-├── index.html                                 # Antarmuka Web Dashboard & Command Center
-├── style.css                                  # Desain UI Cyberpunk Glassmorphism & Responsif
-├── app.js                                     # Logika Aplikasi, State RBAC, & Parsing SHA-256 PDF
-├── smart_contracts.js                         # Wrapper Export Kode Solidity ke UI
-├── IjazahBlockchain.sol                       # Smart Contract Solidity v0.8.20 (Zero-Dependency)
-├── generate_remix_guide_pdf.py                # Skrip Python Generator Panduan Remix IDE
-├── generate_video_and_test_guide_pdf.py       # Skrip Python Generator Naskah Video & Testing
-├── Panduan_Pengujian_Remix_Ganache.html       # Berkas Panduan HTML Pengujian Remix
-├── Naskah_Video_dan_Panduan_Pengujian_Remix.html # Berkas Naskah Video HTML
-├── .gitignore                                 # Mengabaikan Berkas Biner PDF Hasil Generator
-└── README.md                                  # Dokumentasi Utama Repository
+├── index.html          # Antarmuka Web Dashboard & Command Center
+├── style.css           # Desain UI Cyberpunk Glassmorphism & Responsif
+├── app.js              # Logika Aplikasi, State RBAC, & Parsing SHA-256 PDF
+├── smart_contracts.js  # Wrapper Export Kode Solidity ke UI
+├── IjazahBlockchain.sol # Smart Contract Solidity v0.8.20 (Zero-Dependency)
+├── .gitignore          # Konfigurasi Git Ignore
+└── README.md           # Dokumentasi Utama Repository
 ```
 
 ---
