@@ -77,7 +77,7 @@ Dokumentasi lengkap foto & naskah hasil pengujian web portal serta smart contrac
 
 ### Langkah 1: Kompilasi Smart Contract
 1. Buka [Remix Ethereum IDE](https://remix.ethereum.org/).
-2. Buat berkas baru bernama `IjazahBlockchain.sol` dan salin seluruh isi dari [`IjazahBlockchain.sol`](file:///c:/Chapter%20Of%20Me/CSA/FINAL%20CSA/IjazahBlockchain.sol).
+2. 2. Buat berkas baru bernama `IjazahBlockchain.sol` dan salin seluruh isi dari [`IjazahBlockchain.sol`](IjazahBlockchain.sol).
 3. Di tab **Solidity Compiler**, pilih versi compiler `0.8.20` lalu klik **Compile IjazahBlockchain.sol**.
 
 ### Langkah 2: Deployment
