@@ -52,9 +52,24 @@ FINAL CSA/
 ├── app.js              # Logika Aplikasi, State RBAC, & Parsing SHA-256 PDF
 ├── smart_contracts.js  # Wrapper Export Kode Solidity ke UI
 ├── IjazahBlockchain.sol # Smart Contract Solidity v0.8.20 (Zero-Dependency)
+├── bukti_pengujian/    # Folder Bukti Screenshot Pengujian Web & Remix IDE
 ├── .gitignore          # Konfigurasi Git Ignore
 └── README.md           # Dokumentasi Utama Repository
 ```
+
+---
+
+## 📸 Bukti Pengujian Web & Remix IDE (Screenshots)
+
+Dokumentasi lengkap foto & naskah hasil pengujian web portal serta smart contract dapat dilihat pada folder [**`bukti_pengujian/`**](bukti_pengujian/):
+
+1. 🌐 **Web Dashboard Overview**: Matriks Multi-Cloud (AWS vs GCP) & Cloud Metrics.
+2. 💎 **Web Block Payload**: Rincian Payload Block #3 (`FATHYA SHABIRA A.T`).
+3. 📜 **Remix Minting**: Transaksi `issueCertificate` berhasil (Block #2 Ganache).
+4. 🔍 **Remix Verification**: Hasil kueri `verifyCertificate` mengembalikan `isValid: true`.
+5. 🛡️ **Remix Zero-Trust Protection**: Akses ditolak (`REVERTED`) saat dipanggil dari Account 67.
+6. 🏢 **Remix Grant Role DUDI**: Pemberian hak akses `MITRA_DUDI_ROLE` ke Account 67.
+
 
 ---
 
