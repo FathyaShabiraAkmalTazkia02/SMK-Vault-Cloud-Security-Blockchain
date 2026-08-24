@@ -1,151 +1,143 @@
-# 📸 Bukti Pengujian Web, Smart Contract Remix IDE & Ganache
-### SMK Cloud Security & Blockchain Vault
+# 📸 Bukti Pengujian Web & Smart Contract (SMK Cloud Security & Blockchain Vault)
 
-Folder ini berisi dokumentasi hasil pengujian aplikasi **SMK Cloud Security & Blockchain Vault**, meliputi antarmuka web, implementasi Zero-Trust Architecture, Blockchain Ledger, Public Verifier, serta pengujian Smart Contract menggunakan **Remix IDE** dan **Ganache Provider**.
-
----
-
-# 📑 Daftar Bukti Pengujian
-
-## 1. 🌐 Dashboard Overview
-![01_dashboard_overview](01_dashboard_overview.png)
-
-**Deskripsi:**
-
-Tampilan halaman utama aplikasi **SMK Cloud Security & Blockchain Vault** yang menampilkan ringkasan kondisi sistem secara real-time. Dashboard memperlihatkan implementasi arsitektur keamanan cloud berbasis **Zero Trust**, meliputi:
-
-- WAF & Edge Defense
-- KMS Encryption Vault (AES-256)
-- Blockchain Ledger
-- Zero-Trust Security Status
-- Matriks Multi-Cloud Architecture (AWS vs Google Cloud)
-
-Halaman ini menjadi pusat monitoring seluruh komponen keamanan sebelum pengguna mengakses modul lainnya.
+Folder ini berisi dokumentasi pengujian implementasi aplikasi web **SMK Cloud Security & Blockchain Vault** beserta pengujian **Smart Contract `IjazahBlockchain.sol`** menggunakan **Remix IDE** dan **Ganache Provider**.
 
 ---
 
-## 2. 👨‍💼 Zero-Trust Workspace - Staf TU
-![02_staff_workspace](02_staff_workspace.png)
+# 🌐 Implementasi Web
+
+## 1. 📊 Dashboard Overview
+**01_web_dashboard_overview.png**
 
 **Deskripsi:**
-
-Halaman kerja Staf Tata Usaha untuk memasukkan data kelulusan siswa yang nantinya diajukan kepada Kepala Sekolah untuk proses otorisasi digital.
+Menampilkan dashboard utama aplikasi SMK Cloud Security & Blockchain Vault yang memperlihatkan statistik keamanan secara real-time, meliputi WAF & Edge Defense, KMS Encryption Vault, Blockchain Ledger, Zero-Trust Status, serta Matriks Multi-Cloud Architecture (AWS vs GCP).
 
 ---
 
-## 3. 🔐 MFA Authentication Kepala Sekolah
-![03_mfa_authentication](03_mfa_authentication.png)
+## 2. 📝 Input Data Kelulusan
+**02_web_input_data_kelulusan_admin.png**
 
 **Deskripsi:**
-
-Proses autentikasi Multi-Factor Authentication (MFA) sebelum Kepala Sekolah memperoleh hak akses terhadap proses penandatanganan digital menggunakan Cloud KMS.
+Staf Tata Usaha menginput data kelulusan siswa berupa nama, NISN, jurusan, dan nilai rata-rata sebelum diajukan kepada Kepala Sekolah untuk proses penandatanganan digital.
 
 ---
 
-## 4. ✍️ Cloud KMS Signing & Blockchain Minting
-![04_kms_signing](04_kms_signing.png)
+## 3. ✅ Draft Kelulusan Berhasil Diajukan
+**03_web_submit_draft_success.png**
 
 **Deskripsi:**
-
-Kepala Sekolah melakukan proses penandatanganan digital menggunakan Cloud KMS Hardware Security Module sehingga data ijazah siap dicatat ke Blockchain Ledger.
+Sistem menampilkan notifikasi bahwa data kelulusan berhasil dikirim ke antrian persetujuan Kepala Sekolah dan siap diproses menggunakan Cloud KMS.
 
 ---
 
-## 5. ✅ Minting Berhasil
-![05_mint_success](05_mint_success.png)
+## 4. 🔐 MFA Authentication
+**04_web_mfa_authentication.png**
 
 **Deskripsi:**
-
-Notifikasi bahwa ijazah berhasil ditandatangani menggunakan Cloud KMS HSM dan tercatat pada Blockchain Ledger.
+Kepala Sekolah wajib melakukan autentikasi Multi-Factor Authentication (MFA) menggunakan kode OTP sebelum memperoleh akses ke proses penandatanganan ijazah digital.
 
 ---
 
-## 6. 👨‍🎓 Student Self Service
-![06_student_dashboard](06_student_dashboard.png)
+## 5. 🔑 Cloud KMS Signing Workspace
+**05_web_kms_sign_workspace.png**
 
 **Deskripsi:**
-
-Dashboard siswa yang menampilkan seluruh ijazah digital yang telah diterbitkan beserta nilai hash SHA-256 serta fasilitas untuk mengunduh dokumen digital.
+Halaman kerja Kepala Sekolah untuk melakukan otorisasi menggunakan Cloud KMS Hardware Security Module (HSM) sebelum ijazah dicatat ke Blockchain Ledger.
 
 ---
 
-## 7. ✅ Public Verification (Dokumen Asli)
-![07_public_verification_valid](07_public_verification_valid.png)
+## 6. ✔️ KMS Signing Berhasil
+**06_web_kms_sign_success.png**
 
 **Deskripsi:**
-
-Portal verifikasi publik berhasil mencocokkan SHA-256 dokumen dengan Blockchain Ledger sehingga status ijazah dinyatakan **VALID**.
+Notifikasi bahwa proses penandatanganan digital menggunakan Cloud KMS berhasil dilakukan dan data ijazah telah berhasil dicatat pada Blockchain Ledger.
 
 ---
 
-## 8. ❌ Public Verification (Dokumen Dimodifikasi)
-![08_public_verification_invalid](08_public_verification_invalid.png)
+## 7. 👨‍🎓 Student Self-Service Portal
+**07_web_student_self_service.png**
 
 **Deskripsi:**
-
-Simulasi pemalsuan dokumen dengan perubahan satu karakter menyebabkan hash SHA-256 berubah sehingga Blockchain Ledger mendeteksi dokumen sebagai **INVALID/FALSIFIED**.
+Portal mandiri siswa yang menampilkan daftar ijazah digital yang telah diterbitkan beserta hash SHA-256 dan tombol unduh dokumen resmi.
 
 ---
 
-## 9. ⛓️ Block Payload & Immutability Chain
-![09_block_payload](09_block_payload.png)
+## 8. 📥 Download Ijazah Digital
+**08_web_download_certificate.png**
 
 **Deskripsi:**
-
-Detail payload Blockchain yang berisi informasi Block #3 meliputi identitas siswa, SHA-256 Document Hash, timestamp, signer Cloud KMS HSM, transaction hash, dan status validitas dokumen.
+Proses pengunduhan ijazah digital dalam format PDF yang telah diterbitkan dan tersimpan pada Blockchain Ledger.
 
 ---
 
-# 🔷 Pengujian Smart Contract (Remix IDE & Ganache)
-
-## 10. 🚀 Deploy & Issue Certificate (`issueCertificate`)
-![10_issue_certificate](10_issue_certificate.png)
+## 9. ✅ Verifikasi Dokumen Valid
+**09_web_certificate_verified.png**
 
 **Deskripsi:**
-
-Eksekusi fungsi `issueCertificate()` berhasil dilakukan melalui Remix IDE menggunakan Ganache Provider sehingga data ijazah tersimpan pada Blockchain.
+Halaman verifikasi publik yang menunjukkan bahwa hash dokumen sesuai dengan data yang tersimpan pada Blockchain sehingga status dokumen dinyatakan **VALID**.
 
 ---
 
-## 11. 🔍 Verifikasi Certificate (`verifyCertificate`)
-![11_verify_certificate](11_verify_certificate.png)
+## 10. ❌ Deteksi Dokumen Palsu
+**10_web_certificate_invalid.png**
 
 **Deskripsi:**
-
-Pengujian fungsi `verifyCertificate()` mengembalikan status **isValid = true** beserta identitas pemilik ijazah yang tersimpan pada smart contract.
+Sistem mendeteksi adanya perubahan isi dokumen (1 karakter dimodifikasi) sehingga hash tidak cocok dengan Blockchain Ledger dan dokumen dinyatakan **INVALID/FALSIFIED**.
 
 ---
 
-## 12. 🛡️ Zero-Trust Protection (Unauthorized Access)
-![12_zero_trust_reverted](12_zero_trust_reverted.png)
+## 11. 🛡️ Cyber Pentest & Audit Lab
+**11_web_cyber_pentest_audit_lab.png**
 
 **Deskripsi:**
-
-Percobaan pemanggilan fungsi tanpa hak akses menghasilkan transaksi **Reverted**, membuktikan mekanisme RBAC pada smart contract berjalan dengan baik.
+Halaman simulasi pengujian keamanan yang mencakup OWASP Web Security Testing Guide, Smart Contract SCSVS, RBAC Bypass, SQL Injection, Cloud Security Audit, dan API Rate Limiting.
 
 ---
 
-## 13. 👥 Grant Role (`grantRole`)
-![13_grant_role](13_grant_role.png)
+# ⛓️ Pengujian Smart Contract (Remix IDE & Ganache)
+
+## 12. 📜 Deploy & Minting Ijazah (`issueCertificate`)
+**12_remix_issue_certificate.png**
 
 **Deskripsi:**
-
-Administrator memberikan hak akses menggunakan fungsi `grantRole()` kepada akun mitra sehingga akun tersebut memperoleh izin sesuai prinsip Least Privilege.
+Admin/Kepala Sekolah berhasil menjalankan fungsi `issueCertificate`. Transaksi berhasil dan data ijazah dicatat pada Blockchain.
 
 ---
 
-## 14. 📖 Verifikasi Setelah Role Diberikan
-![14_verify_after_grant](14_verify_after_grant.png)
+## 13. 🔍 Verifikasi Sertifikat (`verifyCertificate`)
+**13_remix_verify_certificate.png**
 
 **Deskripsi:**
-
-Setelah role diberikan, akun yang telah diotorisasi berhasil melakukan proses pembacaan dan verifikasi sertifikat melalui smart contract.
+Pemanggilan fungsi `verifyCertificate` mengembalikan status **isValid = true**, membuktikan dokumen telah terdaftar secara sah pada Blockchain.
 
 ---
 
-## 15. 🖥️ Ganache Blockchain Network
-![15_ganache](15_ganache.png)
+## 14. 🚫 Zero-Trust RBAC Protection
+**14_remix_zero_trust_protection.png**
 
 **Deskripsi:**
+Pengguna tanpa hak akses mencoba melakukan proses minting sertifikat dan transaksi ditolak (Reverted), membuktikan mekanisme Role-Based Access Control (RBAC) berjalan dengan baik.
 
-Tampilan Ganache Provider yang digunakan sebagai private Ethereum Blockchain untuk proses deployment, transaksi, mining block, serta pengujian Smart Contract selama implementasi sistem.
+---
+
+## 15. 👥 Grant Role Mitra DUDI
+**15_remix_grant_role_dudi.png**
+
+**Deskripsi:**
+Administrator memberikan hak akses `MITRA_DUDI_ROLE` kepada akun lain menggunakan fungsi `grantRole`. Event `RoleGranted` berhasil diterbitkan.
+
+---
+
+## 16. 📖 Verifikasi Setelah Mendapat Role
+**16_remix_verify_after_grant_role.png**
+
+**Deskripsi:**
+Akun yang telah memperoleh role berhasil melakukan verifikasi sertifikat menggunakan fungsi `verifyCertificate`.
+
+---
+
+## 17. 🖥️ Ganache Blockchain Network
+**17_ganache_blockchain_network.png**
+
+**Deskripsi:**
+Tampilan jaringan Ganache Provider yang digunakan sebagai blockchain lokal selama proses deployment, transaksi, dan pengujian Smart Contract.
